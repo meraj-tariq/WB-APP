@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AgentStatusCard = ({ color, borderColor, boxShadow }) => {
+const AgentStatusCard = ({ color, borderColor, title, boxShadow, busyAgent, idle, notReady, totalAgent }) => {
     return (
         <div className="status-row"
             style={{
@@ -9,15 +9,15 @@ const AgentStatusCard = ({ color, borderColor, boxShadow }) => {
                 backgroundColor: `${color}`
             }}>
             <div className='row-total-agent-con'>
-                <div className='count'>512</div>
-                <div className='detail'>AGENTS IN KARACHI</div>
+                <div className='count'>{totalAgent || "00"}</div>
+                <div className='detail'>{title || "00"}</div>
             </div>
 
             <div className='row-status-agent-con'>
 
                 <div className="box-tag">
                     <div className="tab-no" style={{ color: color }}>
-                        <div className="counter">21</div>
+                        <div className="counter">{idle || "00"}</div>
                     </div>
                     <div className="tab-title">IDLE</div>
                 </div>
@@ -25,14 +25,14 @@ const AgentStatusCard = ({ color, borderColor, boxShadow }) => {
                 <div className="box-tag">
                     <div className="tab-no" style={{ color: color }}>
                         <div
-                            className="counter">21</div>
+                            className="counter">{busyAgent || "00"}</div>
                     </div>
                     <div className="tab-title" >BUSY</div>
                 </div>
 
                 <div className="box-tag">
                     <div className="tab-no" style={{ color: color }}>
-                        <div className="counter">21</div>
+                        <div className="counter">{notReady || "00"}</div>
                     </div>
                     <div className="tab-title" >NOT READY</div>
                 </div>

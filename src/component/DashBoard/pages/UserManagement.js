@@ -5,8 +5,6 @@ import { DELETE_USER, GET_ALL_USER, UPDATE_USER } from '../../utils/Userservice/
 import { Popconfirm } from 'antd';
 import { toast } from 'react-toastify';
 import { resetCreateUserProgress } from '../store/dashboardSlice';
-import { GET_MAIN_SCREEN_STATS } from '../../utils/DashboardService/Api';
-// import { GET_MAIN_SCREEN_STATS } from '../../utils/DashboardService/api';
 
 
 const { Option } = Select;
@@ -23,7 +21,6 @@ function UserManagement() {
     useEffect(() => {
         if (loginUser?.role_type === 0) {
             dispatch(GET_ALL_USER());
-            dispatch(GET_MAIN_SCREEN_STATS());
         }
         dispatch(resetCreateUserProgress())
     }, [])

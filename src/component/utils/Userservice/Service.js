@@ -1,13 +1,10 @@
 
 import axios from 'axios';
-const apiUrl = 'http://192.168.1.197:2022/api';
-// const apiUrl = 'http://192.168.2.100:2022/api';
-
-
+import { Base_URL } from '../base';
 
 export const UserServices = {
     createUser: async (data) => {
-        return axios.post(apiUrl + '/createUser', data, {
+        return axios.post(Base_URL + '/createUser', data, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -27,7 +24,7 @@ export const UserServices = {
         };
 
         try {
-            const response = await fetch(`${apiUrl}/getAllUser`, requestOptions);
+            const response = await fetch(`${Base_URL}/getAllUser`, requestOptions);
             const result_1 = await response.text();
             return result_1;
         } catch (error) {
@@ -36,7 +33,7 @@ export const UserServices = {
     },
 
     deleteUser: async (user_id) => {
-        return axios.post(apiUrl + '/deleteUser', { user_id }, {
+        return axios.post(Base_URL + '/deleteUser', { user_id }, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -44,7 +41,7 @@ export const UserServices = {
     },
 
     updateUser: async (data) => {
-        return axios.post(apiUrl + '/updateUser', data, {
+        return axios.post(Base_URL + '/updateUser', data, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -52,7 +49,7 @@ export const UserServices = {
     },
 
     loginUser: async (data) => {
-        return axios.post(apiUrl + '/loginUser', data, {
+        return axios.post(Base_URL + '/loginUser', data, {
             headers: {
                 "Content-Type": "application/json"
             }

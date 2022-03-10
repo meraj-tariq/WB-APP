@@ -9,10 +9,7 @@ import SupervisorScreen from "./component/Supervisor/SupervisorScreen";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from "react-redux";
-import { NotFound } from "./component/utils/Userservice/base";
-
-// import AgentComponent from "./component/Agent/Agent";
-// import Wallbaord from "./component/Wallboard/WalBoard";
+import { NotFound } from "./component/utils/base";
 
 
 function App() {
