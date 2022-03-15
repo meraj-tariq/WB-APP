@@ -30,15 +30,18 @@ const ManagerScreen = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(GET_WAIT_CALL());
-        dispatch(Get_Main_Screen_StatsV1());
-        dispatch(Get_Main_Screen_StatsV2());
-        dispatch(Get_Slider_Stat());
+        function getAlerts() {
+            dispatch(GET_WAIT_CALL());
+            dispatch(Get_Slider_Stat());
+            dispatch(Get_Main_Screen_StatsV1());
+            dispatch(Get_Main_Screen_StatsV2());
+        }
+        getAlerts()
+        const interval = setInterval(() => getAlerts(), 5000)
+        return () => {
+            clearInterval(interval);
+        }
     }, [])
-
-    // setTimeout(() => { dispatch(GET_WAIT_CALL()); }, 5000);
-
-
 
     const logOut = () => {
         dispatch(logOutUser());
@@ -65,7 +68,7 @@ const ManagerScreen = () => {
                     <div className='wallboard-main-container wll-brd' >
                         <div className='wll-bord-row-1'>
                             <div className='total-agent-box'>
-                                <div className="total">{getMainStatsV2 && getMainStatsV2[0].TotalAgent  || "00"}</div>
+                                <div className="total">{getMainStatsV2 && getMainStatsV2[0].TotalAgent || "00"}</div>
                                 <div className="heading">TOTAL NUMBER OF AGENTS</div>
                             </div>
 

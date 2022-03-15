@@ -24,6 +24,7 @@ const USERDATATABLE = () => {
         { agent_name: "MAAZ Khan", supervisor_name: "khalil", agent_id: "10004", agent_state_duration: "00:30", agent_state: 3 }, // Logout
         { agent_name: "Meraj Khan", supervisor_name: "Faraz Sharif", agent_id: "10004", agent_state_duration: "00:30", agent_state: 1 }, //Ready
         { agent_name: "Ali Khan", supervisor_name: "Kahlil", agent_id: "10004", agent_state_duration: "00:30", agent_state: 2 }, // Not Ready
+        { agent_name: "mmm", supervisor_name: "Kahlil", agent_id: "10004", agent_state_duration: "00:30", agent_state: 2 }, // Not Ready
         
     ];
 

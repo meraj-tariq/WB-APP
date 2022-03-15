@@ -111,8 +111,8 @@ function AddUser() {
                         onChange={(e) => console.log(e)}
                         allowClear
                     >
-                        <Option value={1}>Supervisor</Option>
-                        <Option value={2}>Manager</Option>
+                        <Option value={2}>Supervisor</Option>
+                        <Option value={1}>Manager</Option>
                     </Select>
                 </Form.Item>
 
