@@ -53,3 +53,29 @@ export const Get_Slider_Stat = createAsyncThunk(
         }
     }
 );
+
+export const GET_TABLE_KHI_LHR = createAsyncThunk(
+    "wallboard/getTableKhiLhr",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await WallboardServices.getTableKHILHR()
+            console.log(JSON.parse(response));
+            return JSON.parse(response);
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);
+export const GET_TABLE_KHI = createAsyncThunk(
+    "wallboard/getTableKHI",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await WallboardServices.getTableKHI()
+            console.log(JSON.parse(response));
+            return JSON.parse(response);
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);
+

@@ -79,6 +79,44 @@ export const WallboardServices = {
             return console.log('error', error);
         }
     },
+    getTableKHILHR: async (data) => {
+
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        const requestOptions = {
+            method: 'GET',
+            headers: headers,
+            redirect: 'follow'
+        };
+
+        try {
+            const response = await fetch(`${Base_URL}/getTableLHR`, requestOptions);
+            const result_1 = await response.text();
+            return result_1;
+        } catch (error) {
+            return console.log('error', error);
+        }
+    },
+    getTableKHI: async (data) => {
+
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        const requestOptions = {
+            method: 'GET',
+            headers: headers,
+            redirect: 'follow'
+        };
+
+        try {
+            const response = await fetch(`${Base_URL}/getTableKHI`, requestOptions);
+            const result_1 = await response.text();
+            return result_1;
+        } catch (error) {
+            return console.log('error', error);
+        }
+    },
 }
 
 

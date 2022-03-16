@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Get_Main_Screen_StatsV1, Get_Main_Screen_StatsV2, GET_WAIT_CALL, Get_Slider_Stat } from "../../utils/WallboardService/Api";
+import { Get_Main_Screen_StatsV1, Get_Main_Screen_StatsV2, GET_WAIT_CALL, Get_Slider_Stat, GET_TABLE_KHI_LHR, GET_TABLE_KHI } from "../../utils/WallboardService/Api";
 
 
 const initialState = {
     call_wait: null,
     getMainStatsV1: null,
     getMainStatsV2: null,
-    getSliderStat: null
+    getSliderStat: null,
+    getTableKHILHR: null,
+    getTableKHI: null
 }
 export const ManagerdSlice = createSlice({
     name: 'managerdSlice',
@@ -59,6 +61,24 @@ export const ManagerdSlice = createSlice({
             state.getSliderStat = payload.data
         },
         [Get_Slider_Stat.rejected]: (state, { payload }) => {
+            // state.isProcess = false;
+        },
+        [GET_TABLE_KHI_LHR.pending]: (state, { payload }) => {
+            // state.isProcess = true;
+        },
+        [GET_TABLE_KHI_LHR.fulfilled]: (state, { payload }) => {
+            state.getTableKHILHR = payload.data
+        },
+        [GET_TABLE_KHI_LHR.rejected]: (state, { payload }) => {
+            // state.isProcess = false;
+        },
+        [GET_TABLE_KHI.pending]: (state, { payload }) => {
+            // state.isProcess = true;
+        },
+        [GET_TABLE_KHI.fulfilled]: (state, { payload }) => {
+            state.getTableKHI = payload.data
+        },
+        [GET_TABLE_KHI.rejected]: (state, { payload }) => {
             // state.isProcess = false;
         }
 
