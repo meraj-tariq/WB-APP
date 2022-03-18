@@ -28,6 +28,9 @@ const ManagerScreen = () => {
 
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    
+    let date = new Date();
+    console.log((parseInt(date)), "Date");
 
     useEffect(() => {
         function getAlerts() {
