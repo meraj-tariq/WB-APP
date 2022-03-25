@@ -117,6 +117,26 @@ export const WallboardServices = {
             return console.log('error', error);
         }
     },
+    
+    getSupervisorData: async (data) => {
+
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        const requestOptions = {
+            method: 'GET',
+            headers: headers,
+            redirect: 'follow'
+        };
+
+        try {
+            const response = await fetch(`${Base_URL}/getliloData`, requestOptions);
+            const result_1 = await response.text();
+            return result_1;
+        } catch (error) {
+            return console.log('error', error);
+        }
+    },
 }
 
 

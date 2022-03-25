@@ -66,6 +66,7 @@ export const GET_TABLE_KHI_LHR = createAsyncThunk(
         }
     }
 );
+
 export const GET_TABLE_KHI = createAsyncThunk(
     "wallboard/getTableKHI",
     async (_, { rejectWithValue }) => {
@@ -79,3 +80,15 @@ export const GET_TABLE_KHI = createAsyncThunk(
     }
 );
 
+export const GET_SUPERVISOR_DATA = createAsyncThunk(
+    "wallboard/getTableKHI",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await WallboardServices.getSupervisorData()
+            console.log(JSON.parse(response));
+            return JSON.parse(response);
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);

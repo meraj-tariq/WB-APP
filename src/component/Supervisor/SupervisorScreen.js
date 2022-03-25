@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import USERDATATABLE from './AgentTable';
 import { Layout, Row, Col, Button, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOutUser } from '../Reducers/UserSlice';
+import { GET_SUPERVISOR_DATA } from '../utils/WallboardService/Api';
+import { filterAgents } from '../Manager/store/managerSlice';
 
 const { Text } = Typography;
 const { Header, Content } = Layout;
@@ -12,13 +14,27 @@ const SupervisorScreen = () => {
     const { loginUser } = useSelector(state => state?.UserSlice); //redux toolkit store 
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    const { superVisorTableData, TotalActiveAgent, TotalNotReady, TotalLogOut } = useSelector(state => state?.ManagerdSlice);
+
+
+    useEffect(() => {
+        dispatch(GET_SUPERVISOR_DATA());
+    }, [])
 
     const logOut = () => {
         dispatch(logOutUser());
         navigate('/login');
     }
+
+    const filterAgentsHandle = (category) => {
+        if (category === "all") {
+            dispatch(GET_SUPERVISOR_DATA());
+        } else {
+            dispatch(filterAgents(category))
+        }
+    }
     return (
-        <Layout  className="supervisor-main">
+        <Layout className="supervisor-main">
             <Header className="site-layout-sub-header-background" style={{ padding: 0 }}>
                 <Row span={24} justify="space-between">
                     <Col style={{ marginLeft: "12px" }}>
@@ -36,16 +52,20 @@ const SupervisorScreen = () => {
                 <div className='wallboard-main-container'>
                     <div className='wallBoard-main-row'>
 
-                        <div className='agent-status-logOut' style={{display: "flex" }}>
+                        <div className='agent-status-logOut' style={{ display: "flex" }}>
                             <div className='w-b-filterAgentItem'>
                                 <div>
                                     <h2 style={{ fontWeight: "bold" }}>AGENT STATUS</h2>
                                 </div>
                                 <div>
                                     <select
+                                        onChange={(e) => filterAgentsHandle(e.target.value)}
                                         placeholder="SELECT CRITERIA"
                                         style={{ borderRadius: "7px", marginBottom: "6px", width: "200px", height: "30px", padding: "0 4px" }}>
-                                        <option value={""}>SELECT CRITERIA</option>
+                                        <option value={"all"}>SELECT CRITERIA</option>
+                                        <option value={"RY"}>Ready</option>
+                                        <option value={"NR"}>Not Ready</option>
+                                        <option value={"LO"}>Logout</option>
                                     </select>
                                 </div>
                                 <div>
@@ -67,22 +87,22 @@ const SupervisorScreen = () => {
 
                         <div className="box-container">
                             <div className='w-b-box' style={{ backgroundColor: "#62b6ff" }}>
-                                <div className='df sts-item'>230</div>
-                                <div className='df s-item'>ACTIVE AGENTS</div>
+                                <div className='df sts-item'>{TotalActiveAgent ? TotalActiveAgent?.length : "00"}</div>
+                                <div className='df s-item'>READY</div>
                             </div>
                             <div className='w-b-box' style={{ backgroundColor: "#ff9d0b" }}>
-                                <div className='df sts-item'>20</div>
+                                <div className='df sts-item'>{TotalNotReady ? TotalNotReady?.length : "00"}</div>
                                 <div className='d s-item'>NOT READY</div>
                             </div>
                             <div className='w-b-box' style={{ backgroundColor: "#d80000e0" }}>
-                                <div className='df sts-item'>05</div>
+                                <div className='df sts-item'>{TotalLogOut ? TotalLogOut?.length: "00"}</div>
                                 <div className='df s-item'>LOGOUT</div>
                             </div>
                         </div>
 
                     </div>
 
-                    <USERDATATABLE />
+                    <USERDATATABLE data={superVisorTableData} />
                 </div>
             </Content>
         </Layout>
