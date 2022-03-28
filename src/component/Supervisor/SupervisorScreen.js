@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import USERDATATABLE from './AgentTable';
 import { Layout, Row, Col, Button, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOutUser } from '../Reducers/UserSlice';
 import { GET_SUPERVISOR_DATA } from '../utils/WallboardService/Api';
-import { filterAgents } from '../Manager/store/managerSlice';
+import { filterAgents, searchTableAgent, handleIsTenMinutes, updateTotalAgent } from '../Manager/store/managerSlice';
 
 const { Text } = Typography;
 const { Header, Content } = Layout;
@@ -14,8 +14,24 @@ const SupervisorScreen = () => {
     const { loginUser } = useSelector(state => state?.UserSlice); //redux toolkit store 
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    const { superVisorTableData, TotalActiveAgent, TotalNotReady, TotalLogOut } = useSelector(state => state?.ManagerdSlice);
+    const { superVisorTableData, TotalActiveAgent, TotalNotReady, TotalLogOut, filterdData, isShowTenMinutes } = useSelector(state => state?.ManagerdSlice);
 
+
+
+
+
+    const searchAgentsHandler = (input) => {
+        var temData = [...superVisorTableData]
+        const value = input.toLowerCase()
+        const newUser = temData.filter(user =>
+            user.AgentGivenName.toLowerCase().includes(value)
+        )
+        if (input === "") {
+            dispatch(searchTableAgent(null));
+        } else {
+            dispatch(searchTableAgent(newUser));
+        }
+    }
 
     useEffect(() => {
         dispatch(GET_SUPERVISOR_DATA());
@@ -28,11 +44,39 @@ const SupervisorScreen = () => {
 
     const filterAgentsHandle = (category) => {
         if (category === "all") {
-            dispatch(GET_SUPERVISOR_DATA());
+            dispatch(filterAgents(category))
         } else {
             dispatch(filterAgents(category))
         }
     }
+
+
+    const handleTenMinutes = () => {
+        console.log(isShowTenMinutes);
+        if (!isShowTenMinutes) {
+            const tempArr = [...TotalLogOut];
+            let result = [];
+
+            result = tempArr.filter(item => {
+                const timeZ = item.Timestamp.split("Z")[0];
+
+                const AgentTime = new Date(timeZ).getTime(); //backend 
+                const currentTime = new Date().getTime();
+                let compareTime = ((currentTime - AgentTime) / 1000).toFixed();
+
+                let tenMinSecond = 600;
+                if(compareTime <= tenMinSecond  ){
+                    return item;
+                }
+                // console.log(compareTime, compareTime.toFixed());
+            })
+            console.log(result);
+            dispatch(updateTotalAgent(result))
+        } else {
+            dispatch(filterAgents("all"))
+        }
+    }
+
     return (
         <Layout className="supervisor-main">
             <Header className="site-layout-sub-header-background" style={{ padding: 0 }}>
@@ -62,7 +106,8 @@ const SupervisorScreen = () => {
                                         onChange={(e) => filterAgentsHandle(e.target.value)}
                                         placeholder="SELECT CRITERIA"
                                         style={{ borderRadius: "7px", marginBottom: "6px", width: "200px", height: "30px", padding: "0 4px" }}>
-                                        <option value={"all"}>SELECT CRITERIA</option>
+                                        <option value={""}>SELECT CRITERIA</option>
+                                        <option value={"all"}>All</option>
                                         <option value={"RY"}>Ready</option>
                                         <option value={"NR"}>Not Ready</option>
                                         <option value={"LO"}>Logout</option>
@@ -70,14 +115,20 @@ const SupervisorScreen = () => {
                                 </div>
                                 <div>
                                     <input placeholder="SEARCH HERE"
+                                        onChange={(e) => searchAgentsHandler(e.target.value)}
                                         style={{
                                             width: "200px", height: "30px", borderRadius: "7px", border: "1px solid black",
                                             padding: " 0px 7px", color: "black", FfontSize: "12px"
                                         }} /></div>
                             </div>
 
-                            <div className='w-b-logout-status'>
-                                <div className='status-logout'>
+                            <div className='w-b-logout-status'
+                                style={{ backgroundColor: isShowTenMinutes && "#d2d2d2" }}
+                                onClick={() => {
+                                    handleTenMinutes();
+                                    dispatch(handleIsTenMinutes(!isShowTenMinutes))
+                                }}>
+                                <div className='status-logout' style={{ color: isShowTenMinutes && "#000" }}>
                                     10 Min
                                     LOGOUT
                                 </div>
@@ -95,19 +146,15 @@ const SupervisorScreen = () => {
                                 <div className='d s-item'>NOT READY</div>
                             </div>
                             <div className='w-b-box' style={{ backgroundColor: "#d80000e0" }}>
-                                <div className='df sts-item'>{TotalLogOut ? TotalLogOut?.length: "00"}</div>
+                                <div className='df sts-item'>{TotalLogOut ? TotalLogOut?.length : "00"}</div>
                                 <div className='df s-item'>LOGOUT</div>
                             </div>
                         </div>
-
                     </div>
-
-                    <USERDATATABLE data={superVisorTableData} />
+                    <USERDATATABLE data={filterdData !== null ? filterdData : superVisorTableData} />
                 </div>
             </Content>
         </Layout>
-
-
     )
 }
 

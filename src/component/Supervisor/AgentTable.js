@@ -9,22 +9,29 @@ const USERDATATABLE = ({ data }) => {
     return (
         <div className="u-s-table-container">
             <div className="table-container">
-
+                {data ? `Total: ${data?.length}` : ""}
                 <div className="table-header-row">
                     {columns.map((item, ind) => (<div className="item" key={ind}>{item.name}</div>))}
                 </div>
 
-                {data?.length}
+
                 {data?.map((item, ind) => {
+                    // const timeZ = item.Timestamp.split("Z")[0];
+                    // const AgentTime = new Date(timeZ).getMilliseconds();
+                    // const currentTime = new Date().getMilliseconds();
+
                     const timeZ = item.Timestamp.split("Z")[0];
-                    const AgentTime = new Date(timeZ).getMilliseconds();
-                    const currentTime = new Date().getMilliseconds();
+
+                    const AgentTime = new Date(timeZ).getTime(); //backend
+                    const currentTime = new Date().getTime();    // current times
+                    // console.log(gTime((currentTime - AgentTime)/ 1000).split('.')[0]);
+
                     return <div key={ind} className="table-row">
                         <div className="item">{item.AgentGivenName}</div>
                         <div className="item">{item.AgentSurName}</div>
                         <div className="item">{item.AgentLogin}</div>
                         <div className="item">{item.Duration === 0 ? "-" :
-                            gTime(currentTime - AgentTime)
+                           (gTime((currentTime - AgentTime)/ 1000).split('.')[0])
                         }</div>
 
                         <div className="item">

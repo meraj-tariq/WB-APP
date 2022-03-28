@@ -10,9 +10,11 @@ const initialState = {
     getTableKHILHR: null,
     getTableKHI: null,
     superVisorTableData: null,
+    filterdData: null,
     TotalActiveAgent: null,
     TotalNotReady: null,
-    TotalLogOut: null
+    TotalLogOut: null,
+    isShowTenMinutes: false
 
 }
 export const ManagerdSlice = createSlice({
@@ -22,20 +24,26 @@ export const ManagerdSlice = createSlice({
     reducers: {
         filterAgents: (state, { payload }) => {
             if (payload === "RY") {
-                state.superVisorTableData = state.TotalActiveAgent
+                state.filterdData = state.TotalActiveAgent
             } else if (payload === "NR") {
-                state.superVisorTableData = state.TotalNotReady
+                state.filterdData = state.TotalNotReady
             } else if (payload === "LO") {
-                state.superVisorTableData = state.TotalLogOut
+                state.filterdData = state.TotalLogOut
+            } else if (payload === "all") {
+                state.filterdData = null
             }
+        },
+
+        searchTableAgent: (state, { payload }) => {
+            state.filterdData = payload
+        },
+        handleIsTenMinutes: (state, { payload }) => {
+            state.isShowTenMinutes = payload
+        },
+        updateTotalAgent: (state, {payload})=>{
+            state.filterdData = payload
         }
-        // createUser: (state, { payload }) => {
-        //     // state.loginUser = payload;
-        // },
-        // resetCreateUserProgress: (state, { payload }) => {
-        //     state.userCreatStatus = payload
-        // },
-        // clearState: () => initialState,
+
     },
     extraReducers: {
         [GET_WAIT_CALL.pending]: (state, { payload }) => {
@@ -104,15 +112,12 @@ export const ManagerdSlice = createSlice({
             state.TotalActiveAgent = payload?.data.filter(item => item.EventType === "RY")
             state.TotalNotReady = payload?.data.filter(item => item.EventType === "NR")
             state.TotalLogOut = payload?.data.filter(item => item.EventType === "LO")
-
         },
         [GET_SUPERVISOR_DATA.rejected]: (state, { payload }) => {
             // state.isProcess = false;
         }
-
     }
-
 })
 
-export const { filterAgents } = ManagerdSlice.actions;
+export const { filterAgents, searchTableAgent, handleIsTenMinutes,updateTotalAgent  } = ManagerdSlice.actions;
 export default ManagerdSlice.reducer;
