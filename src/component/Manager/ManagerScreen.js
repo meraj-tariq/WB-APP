@@ -41,7 +41,7 @@ const ManagerScreen = () => {
             dispatch(GET_KARACHI_TABLE_DATA())
         }
         getAlerts()
-        const interval = setInterval(() => getAlerts(), 100000)
+        const interval = setInterval(() => getAlerts(), 5000)
         return () => {
             clearInterval(interval);
         }
