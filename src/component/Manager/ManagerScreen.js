@@ -17,7 +17,7 @@ import { Layout, Row, Col, Button, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOutUser } from '../Reducers/UserSlice';
-import { Get_Main_Screen_StatsV1, Get_Main_Screen_StatsV2, GET_WAIT_CALL, Get_Slider_Stat, GET_TABLE_KHI_LHR, GET_TABLE_KHI } from '../utils/WallboardService/Api';
+import { Get_Main_Screen_StatsV1, Get_Main_Screen_StatsV2, GET_WAIT_CALL, Get_Slider_Stat, GET_TABLE_KHI_LHR, GET_KARACHI_TABLE_DATA } from '../utils/WallboardService/Api';
 import { gTime } from '../utils/base';
 const { Text } = Typography;
 const { Header, Content } = Layout;
@@ -37,10 +37,11 @@ const ManagerScreen = () => {
             dispatch(Get_Main_Screen_StatsV1());
             dispatch(Get_Main_Screen_StatsV2());
             dispatch(GET_TABLE_KHI_LHR());
-            dispatch(GET_TABLE_KHI());
+          
+            dispatch(GET_KARACHI_TABLE_DATA())
         }
         getAlerts()
-        const interval = setInterval(() => getAlerts(), 5000)
+        const interval = setInterval(() => getAlerts(), 100000)
         return () => {
             clearInterval(interval);
         }

@@ -79,6 +79,18 @@ export const GET_TABLE_KHI = createAsyncThunk(
         }
     }
 );
+export const GET_KARACHI_TABLE_DATA = createAsyncThunk(
+    "wallboard/getKarachiTableData",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await WallboardServices.getTableKHI()
+            console.log(JSON.parse(response));
+            return JSON.parse(response);
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);
 
 export const GET_SUPERVISOR_DATA = createAsyncThunk(
     "wallboard/getTableKHI",

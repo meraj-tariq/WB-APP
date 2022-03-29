@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 function CallStatusTable() {
     const { getTableKHILHR, getTableKHI } = useSelector(state => state?.ManagerdSlice); //redux toolkit store
-
+    console.log(getTableKHILHR, getTableKHI, "getTableKHILHR, getTableKHI");
 
     let data = [
         { name: "Landed", kcc: "250", lcc: "362", total: "6512" },

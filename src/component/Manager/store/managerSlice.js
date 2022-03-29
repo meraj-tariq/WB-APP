@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Get_Main_Screen_StatsV1, Get_Main_Screen_StatsV2, GET_WAIT_CALL, Get_Slider_Stat, GET_TABLE_KHI_LHR, GET_TABLE_KHI, GET_SUPERVISOR_DATA } from "../../utils/WallboardService/Api";
+import { Get_Main_Screen_StatsV1, Get_Main_Screen_StatsV2, GET_WAIT_CALL, Get_Slider_Stat, GET_TABLE_KHI_LHR, GET_SUPERVISOR_DATA, GET_KARACHI_TABLE_DATA } from "../../utils/WallboardService/Api";
 
 
 const initialState = {
@@ -91,16 +91,7 @@ export const ManagerdSlice = createSlice({
         [GET_TABLE_KHI_LHR.rejected]: (state, { payload }) => {
             // state.isProcess = false;
         },
-        [GET_TABLE_KHI.pending]: (state, { payload }) => {
-            // state.isProcess = true;
-        },
-        [GET_TABLE_KHI.fulfilled]: (state, { payload }) => {
-            state.getTableKHI = payload.data
-        },
-        [GET_TABLE_KHI.rejected]: (state, { payload }) => {
-            // state.isProcess = false;
-        },
-        // 
+      
         [GET_SUPERVISOR_DATA.pending]: (state, { payload }) => {
             // state.isProcess = true;
         },
@@ -112,7 +103,16 @@ export const ManagerdSlice = createSlice({
         },
         [GET_SUPERVISOR_DATA.rejected]: (state, { payload }) => {
             // state.isProcess = false;
-        }
+        },
+        [GET_KARACHI_TABLE_DATA.pending]: (state, { payload }) => {
+            // state.isProcess = true;
+        },
+        [GET_KARACHI_TABLE_DATA.fulfilled]: (state, { payload }) => {
+            state.getTableKHI = payload.data
+        },
+        [GET_KARACHI_TABLE_DATA.rejected]: (state, { payload }) => {
+            // state.isProcess = false;
+        },
     }
 })
 
