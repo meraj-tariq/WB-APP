@@ -50,7 +50,6 @@ export const ManagerdSlice = createSlice({
             // state.isProcess = true;
         },
         [GET_WAIT_CALL.fulfilled]: (state, { payload }) => {
-            console.log(payload);
             state.call_wait = payload?.data[0]
         },
         [GET_WAIT_CALL.rejected]: (state, { payload }) => {
@@ -60,7 +59,6 @@ export const ManagerdSlice = createSlice({
             // state.isProcess = true;
         },
         [Get_Main_Screen_StatsV1.fulfilled]: (state, { payload }) => {
-            console.log(payload);
             state.getMainStatsV1 = payload?.data[0]
         },
         [Get_Main_Screen_StatsV1.rejected]: (state, { payload }) => {
@@ -70,7 +68,6 @@ export const ManagerdSlice = createSlice({
             // state.isProcess = true;
         },
         [Get_Main_Screen_StatsV2.fulfilled]: (state, { payload }) => {
-            console.log(payload);
             state.getMainStatsV2 = payload.data
         },
         [Get_Main_Screen_StatsV2.rejected]: (state, { payload }) => {

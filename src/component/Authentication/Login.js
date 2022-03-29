@@ -38,7 +38,6 @@ const Login = () => {
         } else {
 
             dispatch(USER_LOGIN({ user_email: email, user_password: password })).then(({ payload }) => {
-                console.log(payload);
                 if (!payload.status) {
                     toast(payload.message);
                 } else if (payload.data.role_type === 1) {

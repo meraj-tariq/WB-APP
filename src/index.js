@@ -11,7 +11,6 @@ import 'antd/dist/antd.css';
 
 
 let persistor = persistStore(store);
-// console.log(app)
 const onBeforeLift = () => {
     // take some action before the gate lifts
 }

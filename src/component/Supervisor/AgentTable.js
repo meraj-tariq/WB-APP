@@ -24,7 +24,6 @@ const USERDATATABLE = ({ data }) => {
 
                     const AgentTime = new Date(timeZ).getTime(); //backend
                     const currentTime = new Date().getTime();    // current times
-                    // console.log(gTime((currentTime - AgentTime)/ 1000).split('.')[0]);
 
                     return <div key={ind} className="table-row">
                         <div className="item">{item.AgentGivenName}</div>

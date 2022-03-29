@@ -40,8 +40,6 @@ function UserManagement() {
 
 
     const confirm = (e) => {
-        // console.log(e);
-        // message.success('Click on Yes');
         dispatch(DELETE_USER(e)).then(res => {
             dispatch(GET_ALL_USER());
             toast("User Successfully deleted!");
@@ -49,7 +47,6 @@ function UserManagement() {
     }
 
     const cancel = (e) => {
-        // console.log(e);
         // message.error('Click on No');
     }
 

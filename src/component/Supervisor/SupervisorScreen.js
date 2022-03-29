@@ -34,7 +34,19 @@ const SupervisorScreen = () => {
     }
 
     useEffect(() => {
-        dispatch(GET_SUPERVISOR_DATA());
+
+    }, [])
+
+    useEffect(() => {
+        function getAlerts() {
+            dispatch(GET_SUPERVISOR_DATA());
+        }
+
+        getAlerts()
+        const interval = setInterval(() => getAlerts(), 600000) //3sec 10sec 10000
+        return () => {
+            clearInterval(interval);
+        }
     }, [])
 
     const logOut = () => {
@@ -52,25 +64,21 @@ const SupervisorScreen = () => {
 
 
     const handleTenMinutes = () => {
-        console.log(isShowTenMinutes);
         if (!isShowTenMinutes) {
             const tempArr = [...TotalLogOut];
             let result = [];
 
             result = tempArr.filter(item => {
                 const timeZ = item.Timestamp.split("Z")[0];
-
                 const AgentTime = new Date(timeZ).getTime(); //backend 
                 const currentTime = new Date().getTime();
                 let compareTime = ((currentTime - AgentTime) / 1000).toFixed();
 
                 let tenMinSecond = 600;
-                if(compareTime <= tenMinSecond  ){
+                if (compareTime <= tenMinSecond) {
                     return item;
                 }
-                // console.log(compareTime, compareTime.toFixed());
             })
-            console.log(result);
             dispatch(updateTotalAgent(result))
         } else {
             dispatch(filterAgents("all"))
