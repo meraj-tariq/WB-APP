@@ -368,3 +368,35 @@ code {
 .ant-layout-header{
   box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.342)
 }
+
+@media only screen and (min-width: 1619px) and (max-width: 1650px)  {
+  .wll-bord-row-3 > .row-tag{
+    width: 255px !important;
+  }
+}
+
+@media only screen and (min-width: 1650px) and (max-width: 1686px)  {
+  .wll-bord-row-3 > .row-tag{
+    width: 267px !important;
+  }
+}
+@media only screen and (min-width: 1722px) and (max-width: 2560px)  {
+  .wll-bord-row-3 > .row-tag{
+    width: 360px !important;
+  }
+}
+
+
+@media only screen and (min-width: 2240px) and (max-width: 2560px)  {
+  .wll-bord-row-3 > .row-tag{
+    height: 83px !important;
+    width: 440px !important;
+  }
+  .wll-bord-row-1 > .total-agent-box{
+    height: 457px  !important;
+    width: 510px  !important;
+  }
+  .wll-bord-row-2{
+    height: 464px  !important;
+  }
+}
