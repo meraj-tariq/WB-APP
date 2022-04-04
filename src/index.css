@@ -375,22 +375,28 @@ code {
   }
 }
 
-@media only screen and (min-width: 1650px) and (max-width: 1686px)  {
+@media only screen and (min-width: 1650px) and (max-width: 1722px)  {
   .wll-bord-row-3 > .row-tag{
     width: 267px !important;
   }
 }
-@media only screen and (min-width: 1722px) and (max-width: 2560px)  {
+@media only screen and (min-width: 1722px) and (max-width: 2039px)  {
   .wll-bord-row-3 > .row-tag{
-    width: 360px !important;
+    width: 320px !important;
   }
 }
+@media only screen and (min-width: 2039px) and (max-width: 2240px)  {
+  .wll-bord-row-3 > .row-tag{
+    width: 384px !important;
+  }
+}
+
 
 
 @media only screen and (min-width: 2240px) and (max-width: 2560px)  {
   .wll-bord-row-3 > .row-tag{
     height: 83px !important;
-    width: 440px !important;
+    width: 408px !important;
   }
   .wll-bord-row-1 > .total-agent-box{
     height: 457px  !important;
