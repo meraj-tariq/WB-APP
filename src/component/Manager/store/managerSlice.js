@@ -40,8 +40,16 @@ export const ManagerdSlice = createSlice({
         handleIsTenMinutes: (state, { payload }) => {
             state.isShowTenMinutes = payload
         },
-        updateTotalAgent: (state, {payload})=>{
+        updateTotalAgent: (state, { payload }) => {
             state.filterdData = payload
+        },
+
+        clearSupervisorData: (state, { payload }) => {
+            state.superVisorTableData = null
+            state.filterdData = null
+            state.TotalActiveAgent = null
+            state.TotalNotReady = null
+            state.TotalLogOut = null
         }
 
     },
@@ -91,15 +99,23 @@ export const ManagerdSlice = createSlice({
         [GET_TABLE_KHI_LHR.rejected]: (state, { payload }) => {
             // state.isProcess = false;
         },
-      
+
         [GET_SUPERVISOR_DATA.pending]: (state, { payload }) => {
             // state.isProcess = true;
         },
         [GET_SUPERVISOR_DATA.fulfilled]: (state, { payload }) => {
-            state.superVisorTableData = payload?.data?.reverse()
-            state.TotalActiveAgent = payload?.data.filter(item => item.EventType === "RY")
-            state.TotalNotReady = payload?.data.filter(item => item.EventType === "NR")
-            state.TotalLogOut = payload?.data.filter(item => item.EventType === "LO")
+
+            const arr_main = payload?.data;
+
+            var arr = arr_main;
+            const ids = arr?.map(o => o.AgentLogin)
+            const filtered = arr?.filter(({ AgentLogin }, index) => !ids.includes(AgentLogin, index + 1))
+            const final_data = filtered?.reverse()
+            console.log(filtered?.reverse())
+            state.superVisorTableData = final_data
+            state.TotalActiveAgent = final_data.filter(item => item.EventType === "RY")
+            state.TotalNotReady = final_data.filter(item => item.EventType === "NR")
+            state.TotalLogOut = final_data.filter(item => item.EventType === "LO")
         },
         [GET_SUPERVISOR_DATA.rejected]: (state, { payload }) => {
             // state.isProcess = false;
@@ -116,5 +132,5 @@ export const ManagerdSlice = createSlice({
     }
 })
 
-export const { filterAgents, searchTableAgent, handleIsTenMinutes,updateTotalAgent  } = ManagerdSlice.actions;
+export const { filterAgents, searchTableAgent, handleIsTenMinutes, updateTotalAgent, clearSupervisorData } = ManagerdSlice.actions;
 export default ManagerdSlice.reducer;

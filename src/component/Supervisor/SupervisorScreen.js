@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOutUser } from '../Reducers/UserSlice';
 import { GET_SUPERVISOR_DATA } from '../utils/WallboardService/Api';
-import { filterAgents, searchTableAgent, handleIsTenMinutes, updateTotalAgent } from '../Manager/store/managerSlice';
+import { filterAgents, searchTableAgent, handleIsTenMinutes, updateTotalAgent, clearSupervisorData } from '../Manager/store/managerSlice';
 
 const { Text } = Typography;
 const { Header, Content } = Layout;
@@ -15,9 +15,6 @@ const SupervisorScreen = () => {
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const { superVisorTableData, TotalActiveAgent, TotalNotReady, TotalLogOut, filterdData, isShowTenMinutes } = useSelector(state => state?.ManagerdSlice);
-
-
-
 
 
     const searchAgentsHandler = (input) => {
@@ -34,10 +31,6 @@ const SupervisorScreen = () => {
     }
 
     useEffect(() => {
-
-    }, [])
-
-    useEffect(() => {
         function getAlerts() {
             dispatch(GET_SUPERVISOR_DATA());
         }
@@ -50,6 +43,7 @@ const SupervisorScreen = () => {
     }, [])
 
     const logOut = () => {
+        dispatch(clearSupervisorData());
         dispatch(logOutUser());
         navigate('/login');
     }
